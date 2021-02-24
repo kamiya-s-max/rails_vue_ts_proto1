@@ -1,6 +1,6 @@
 FROM node:12.10
 
-ENV APP_DIR /app/frontend
+ENV APP_DIR /app/frontend/
 ENV PATH /app/frontend/node_modules/.bin:$PATH
 ENV TZ Asia/Tokyo
 ENV HOST 0.0.0.0
