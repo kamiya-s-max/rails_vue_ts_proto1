@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   db-data:
+  gem-data:
 
 services:
   db:
@@ -13,11 +14,12 @@ services:
 
   backend:
     build: ./backend
-    command: /bin/bash -c "rm -rf tmp/pids/server.pid; bundle exec rails s -p 8080 -b 0.0.0.0"
+    command: /bin/bash -c "rm -rf tmp/pids/server.pid; bundle exec rails s -b 0.0.0.0"
     volumes:
       - ./backend:/app/backend
+      - gem-data:/usr/local/bundle
     ports:
-      - '8080:8080'
+      - '3000:3000'
     depends_on:
       - db
     tty: true
@@ -25,11 +27,11 @@ services:
 
   frontend:
     build: ./frontend
-    command: npm run dev
+    command: npm run serve
     volumes:
       - ./frontend:/app/frontend
     ports:
-      - '3000:3000'
+      - '8080:8080'
     depends_on:
       - backend
     tty: true
